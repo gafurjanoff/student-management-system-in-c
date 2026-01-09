@@ -158,6 +158,25 @@ void deleteRecord(){
 }
 
 
+
+
+
+void searchByID() {
+    int id, idx;
+    printf("\nEnter ID to search: "); scanf("%d", &id);
+    idx = findIndex(id);
+
+    if (idx != -1) {
+        printf("\n--- Record Found ---\n");
+        printf("ID: %d\nName: %s\nGrades: %d, %d, %d\nAddress: %s\nPhone: %s\n",
+               database[idx].studentID, database[idx].name,
+               database[idx].grades[0], database[idx].grades[1], database[idx].grades[2],
+               database[idx].address, database[idx].phone);
+    } else {
+        printf("Student ID not found.\n");
+    }
+}
+
 void displayAll() {
     if (count == 0) {
         printf("\nNo records to display.\n");

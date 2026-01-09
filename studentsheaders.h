@@ -21,9 +21,9 @@ void addRecord();
 void updateRecord();
 void deleteRecord();
 void displayAll();
-// void searchByID();
+void searchByID();
 void saveToFile();
-// void loadFromFile();
+void loadFromFile();
 int findIndex(int id);
 
 #endif

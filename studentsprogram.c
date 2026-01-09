@@ -7,7 +7,7 @@ int main(){
 
     int choice;
 
-    
+    loadFromFile();
     do {
         printf("\n===== STUDENT MANAGEMENT SYSTEM =====");
         printf("\n1. Add Record");
@@ -25,7 +25,7 @@ int main(){
             case 2: updateRecord(); break;
             case 3: deleteRecord(); break;
             case 4: displayAll(); break;
-            // case 5: searchByID(); break;
+            case 5: searchByID(); break;
             case 6: saveToFile(); break;
             case 7: printf("Exiting program...\n"); break;
             default: printf("Invalid choice! Try again.\n");
