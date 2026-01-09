@@ -18,7 +18,7 @@ typedef struct {
 
 
 void addRecord();
-// void updateRecord();
+void updateRecord();
 void deleteRecord();
 void displayAll();
 // void searchByID();

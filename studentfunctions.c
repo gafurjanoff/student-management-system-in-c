@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h> 
 
 
-#include "students.h"
+#include "studentsheaders.h"
 
 
 Student database[MAX_STUDENTS];
@@ -63,6 +64,80 @@ void addRecord(){
 }
 
 
+int isYes(char *input) {
+
+    for (int i = 0; input[i]; i++) {
+        input[i] = tolower(input[i]);
+    }
+    return (strcmp(input, "y") == 0 || strcmp(input, "yes") == 0);
+}
+
+
+void updateRecord() {
+    int id, idx;
+    char choice[10];
+
+    printf("\nEnter ID to update: "); 
+    scanf("%d", &id);
+    getchar(); 
+
+    idx = findIndex(id);
+
+    if (idx == -1) {
+        printf("Student ID not found.\n");
+        return;
+    }
+
+    printf("\nUpdating record for: %s\n", database[idx].name);
+
+
+    printf("Update Name? (y/n): ");
+    fgets(choice, sizeof(choice), stdin);
+    choice[strcspn(choice, "\n")] = 0;
+    if (isYes(choice)) {
+        printf("Enter New Name: ");
+        fgets(database[idx].name, 50, stdin);
+        database[idx].name[strcspn(database[idx].name, "\n")] = 0;
+    }
+
+
+    printf("Update Grades? (y/n): ");
+    fgets(choice, sizeof(choice), stdin);
+    choice[strcspn(choice, "\n")] = 0;
+    if (isYes(choice)) {
+        for (int i = 0; i < NUM_GRADES; i++) {
+            printf("Enter Grade %d: ", i + 1);
+            scanf("%d", &database[idx].grades[i]);
+        }
+        getchar(); // clear newline left by last scanf
+    }
+
+   
+    printf("Update Address? (y/n): ");
+    fgets(choice, sizeof(choice), stdin);
+    choice[strcspn(choice, "\n")] = 0;
+    if (isYes(choice)) {
+        printf("Enter New Address: ");
+        fgets(database[idx].address, 100, stdin);
+        database[idx].address[strcspn(database[idx].address, "\n")] = 0;
+    }
+
+   
+    printf("Update Phone? (y/n): ");
+    fgets(choice, sizeof(choice), stdin);
+    choice[strcspn(choice, "\n")] = 0;
+    if (isYes(choice)) {
+        printf("Enter New Phone Number: ");
+        fgets(database[idx].phone, 20, stdin);
+        database[idx].phone[strcspn(database[idx].phone, "\n")] = 0;
+    }
+
+    printf("\nRecord updated successfully! ✅\n");
+}
+
+
+
+
 void deleteRecord(){
     int idx, id;
 
@@ -115,4 +190,21 @@ void saveToFile(){
     printf("Records saved to 'students.txt'.\n");
 
 
+}
+
+
+void loadFromFile() {
+    FILE *fp = fopen("students.txt", "r");
+    if (!fp) return;
+
+    count = 0;
+    while (count < MAX_STUDENTS && 
+           fscanf(fp, "%d|%[^|]|%d|%d|%d|%[^|]|%[^\n]\n", 
+           &database[count].studentID, database[count].name, 
+           &database[count].grades[0], &database[count].grades[1], 
+           &database[count].grades[2], database[count].address, 
+           database[count].phone) == 7) {
+        count++;
+    }
+    fclose(fp);
 }

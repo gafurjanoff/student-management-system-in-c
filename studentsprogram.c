@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "students.h"
+#include "studentsheaders.h"
 
 
 
@@ -22,7 +22,7 @@ int main(){
 
         switch (choice) {
             case 1: addRecord(); break;
-            // case 2: updateRecord(); break;
+            case 2: updateRecord(); break;
             case 3: deleteRecord(); break;
             case 4: displayAll(); break;
             // case 5: searchByID(); break;
